@@ -117,6 +117,7 @@ function App() {
         {error && <div className="error-message">{error}</div>}
         <textarea 
           className="answer-box" 
+          placeholder="Seja bem vindo ao chat bot da FURIA! Faça uma pergunta no campo abaixo, e estaremos prontos para responder!" 
           id="answer-box" 
           value={answer} 
           readOnly
