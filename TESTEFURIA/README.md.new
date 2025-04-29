@@ -1,0 +1,121 @@
+# FURIA Chat
+
+## Sobre o Projeto
+
+FURIA Chat é uma aplicação web desenvolvida em React que permite aos usuários fazer perguntas e obter informações sobre a FURIA, uma organização brasileira de eSports. O aplicativo utiliza a API do ChatGPT (GPT-3.5-turbo) para fornecer respostas precisas e relevantes sobre o time, seus jogadores, conquistas e histórico.
+
+## Funcionalidades
+
+- **Interface de Chat Intuitiva**: Interface simples e fácil de usar para fazer perguntas sobre a FURIA
+- **Filtro de Perguntas**: Verifica se as perguntas estão relacionadas à FURIA antes de processá-las
+- **Mensagens Rápidas**: Botões com perguntas predefinidas para facilitar o uso
+- **Integração com ChatGPT**: Utiliza a API OpenAI para gerar respostas contextuais
+- **Links Externos**: Acesso rápido ao site oficial da FURIA e redes sociais
+
+## Tecnologias Utilizadas
+
+- React.js 19.1.0
+- Axios para requisições HTTP
+- API OpenAI (GPT-3.5-turbo)
+- CSS para estilização
+- Ambiente de desenvolvimento React Scripts
+
+## Pré-requisitos
+
+- Node.js (versão recomendada: 16.x ou superior)
+- npm ou yarn
+- Chave de API da OpenAI
+
+## Configuração do Ambiente
+
+1. Clone o repositório:
+```bash
+git clone <url-do-repositorio>
+cd furiachat
+```
+
+2. Instale as dependências:
+```bash
+npm install
+# ou
+yarn install
+```
+
+3. Configure a variável de ambiente:
+Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+```
+REACT_APP_CHATGPT_KEY=sua_chave_api_aqui
+```
+
+## Executando o Projeto
+
+Para iniciar o aplicativo em modo de desenvolvimento:
+```bash
+npm start
+# ou
+yarn start
+```
+
+O aplicativo estará disponível em [http://localhost:3000](http://localhost:3000).
+
+## Estrutura do Projeto
+
+```
+furiachat/
+├── public/               # Arquivos públicos estáticos
+├── src/                  # Código fonte
+│   ├── assets/           # Imagens e recursos
+│   ├── App.js            # Componente principal
+│   ├── App.css           # Estilos do componente principal
+│   └── index.js          # Ponto de entrada da aplicação
+├── .env                  # Variáveis de ambiente (não versionado)
+├── package.json          # Dependências e scripts
+└── README.md             # Documentação
+```
+
+## Funcionalidades Detalhadas
+
+### Sistema de Filtragem de Perguntas
+
+O aplicativo possui um sistema que verifica se as perguntas estão relacionadas à FURIA através de palavras-chave como:
+- Nome da organização (FURIA, FURIAGaming)
+- Nomes dos jogos (CS:GO, Valorant, League of Legends, etc.)
+- Nomes dos jogadores (KSerato, yuurih, FalleN, etc.)
+
+### Integração com API OpenAI
+
+A aplicação se conecta à API do ChatGPT com instruções específicas para:
+- Responder apenas perguntas relacionadas à FURIA
+- Fornecer informações precisas sobre a organização
+- Limitar respostas a um tamanho adequado (max_tokens: 100)
+
+### Interface de Usuário
+
+- **Caixa de Texto**: Para digitação de perguntas personalizadas
+- **Área de Resposta**: Exibe as respostas geradas pela API
+- **Botões de Mensagens Rápidas**: Para acesso rápido a perguntas comuns
+- **Indicador de Carregamento**: Feedback visual durante o processamento da API
+- **Mensagens de Erro**: Feedback quando ocorrem problemas
+
+## Contribuição
+
+Para contribuir com o projeto:
+
+1. Faça um fork do repositório
+2. Crie uma branch para sua funcionalidade (`git checkout -b feature/nova-funcionalidade`)
+3. Faça commit das suas alterações (`git commit -m 'Adiciona nova funcionalidade'`)
+4. Envie para o branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
+
+## Contato
+
+Para mais informações sobre o projeto ou para reportar problemas, entre em contato através de issues no GitHub.
+
+---
+
+Desde já, agradeço a atenção e a oportunidade de participar desse processo seletivo
+espero que gostem.
