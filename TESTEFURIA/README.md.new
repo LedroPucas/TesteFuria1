@@ -2,7 +2,7 @@
 
 ## Sobre o Projeto
 
-FURIA Chat é uma aplicação web desenvolvida em React que permite aos usuários fazer perguntas e obter informações sobre a FURIA, uma organização brasileira de eSports. O aplicativo utiliza a API do ChatGPT (GPT-3.5-turbo) para fornecer respostas precisas e relevantes sobre o time, seus jogadores, conquistas e histórico.
+FURIA Chat é uma aplicação web desenvolvida em React que permite aos usuários fazer perguntas e obter informações sobre a FURIA. O aplicativo utiliza a API do ChatGPT (GPT-3.5-turbo) para fornecer respostas precisas e relevantes sobre o time, seus jogadores, conquistas e histórico.
 
 ## Funcionalidades
 
