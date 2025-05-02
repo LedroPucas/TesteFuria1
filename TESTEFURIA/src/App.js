@@ -23,49 +23,18 @@ function App() {
 
   const handleSendPrompt = async () => {
     if (!prompt.trim()) return;
-    
-
+  
     if (!isFuriaRelatedQuestion(prompt)) {
       setError('Por favor, faça apenas perguntas relacionadas à FURIA e-sports!');
       return;
     }
-    
+  
     setIsLoading(true);
     setError(null);
-    
+  
     try {
-      const apiKey = process.env.REACT_APP_CHATGPT_KEY;
-      console.log('API Key disponível:', !!apiKey); 
-
-      const client = axios.create({
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        }
-      });
-      
-
-      const systemInstruction = 'Você é um assistente especializado que só responde perguntas sobre a FURIA e-sports. '
-                             + 'Se a pergunta não for sobre a FURIA, seus jogadores, equipes, jogos ou história, '
-                             + 'informe educadamente que só pode responder sobre esse tema. '
-                             + 'Forneça informações precisas e atuais sobre a FURIA quando solicitado.';
-      
-      const params = {
-        model: 'gpt-3.5-turbo',
-        messages: [
-          {role: 'system', content: systemInstruction},
-          {role: 'user', content: prompt}
-        ],
-        max_tokens: 100,
-        temperature: 0.7,
-      };
-
-      console.log('Enviando requisição para a API...', params.model);
-      const result = await client.post("https://api.openai.com/v1/chat/completions", params);
-      console.log('Resposta recebida:', result.data);
-      
-      setAnswer(result.data.choices[0].message.content);
-
+      const result = await axios.post("https://furia-backend-dkj3.onrender.com/api/chat", { prompt });
+      setAnswer(result.data.message);
     } catch (err) {
       console.error('Erro ao chamar a API:', err.response ? err.response.data : err.message);
       setError('Erro ao processar sua solicitação. Por favor, tente novamente.');
@@ -73,6 +42,7 @@ function App() {
       setIsLoading(false);
     }
   };
+  
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
