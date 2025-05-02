@@ -97,24 +97,6 @@ A aplicação se conecta à API do ChatGPT com instruções específicas para:
 - **Indicador de Carregamento**: Feedback visual durante o processamento da API
 - **Mensagens de Erro**: Feedback quando ocorrem problemas
 
-## Contribuição
-
-Para contribuir com o projeto:
-
-1. Faça um fork do repositório
-2. Crie uma branch para sua funcionalidade (`git checkout -b feature/nova-funcionalidade`)
-3. Faça commit das suas alterações (`git commit -m 'Adiciona nova funcionalidade'`)
-4. Envie para o branch (`git push origin feature/nova-funcionalidade`)
-5. Abra um Pull Request
-
-## Licença
-
-Este projeto está licenciado sob a licença MIT.
-
-## Contato
-
-Para mais informações sobre o projeto ou para reportar problemas, entre em contato através de issues no GitHub.
-
 ---
 
 Desde já, agradeço a atenção e a oportunidade de participar desse processo seletivo
