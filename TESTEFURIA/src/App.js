@@ -58,7 +58,7 @@ function App() {
 
   const handleQuickMessageClick = (message) => {
     setPrompt(message);
-
+    // Usando um timeout curto para garantir que o estado seja atualizado antes de enviar
     setTimeout(() => handleSendPrompt(), 100);
   };
 
@@ -70,6 +70,15 @@ function App() {
     "Conte sobre a história da FURIA",
     "Quem é o capitão da FURIA?"
   ];
+
+  // Função para rolar para o campo de texto quando em dispositivo móvel
+  const focusTextBox = () => {
+    const textBox = document.getElementById('text-box');
+    if (textBox && window.innerWidth <= 768) {
+      textBox.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => textBox.focus(), 500);
+    }
+  };
 
   return (
     <div className="app-container">
@@ -98,8 +107,12 @@ function App() {
             <button 
               key={index} 
               className="quick-message-button" 
-              onClick={() => handleQuickMessageClick(message)}
+              onClick={() => {
+                handleQuickMessageClick(message);
+                focusTextBox();
+              }}
               disabled={isLoading}
+              aria-label={`Pergunta rápida: ${message}`}
             >
               {message}
             </button>
@@ -114,13 +127,15 @@ function App() {
           onChange={handlePromptChange} 
           onKeyDown={handleKeyDown}
           disabled={isLoading}
+          aria-label="Digite sua pergunta"
         />
         <button 
           className="send-button" 
           onClick={handleSendPrompt} 
           disabled={isLoading || !prompt.trim()}
+          aria-label="Enviar pergunta"
         >
-          Enviar
+          {isLoading ? 'Enviando...' : 'Enviar'}
         </button>
       </div>
     </div>
