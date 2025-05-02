@@ -41,6 +41,18 @@
 - Chave de API da OpenAI
 
 ---
+## Para acessar o site: https://teste-furia1.vercel.app/
+
+
+O Site esta separado em dois repositorios, um para o back-end(https://github.com/LedroPucas/furiabackend) e outro para o front-end (https://github.com/LedroPucas/TesteFuria1), pois, ao criar subi o backend no Render, para ficar hospedado de forma confiavel
+para que a Key do GPT, não seja vazada, e podendo assim conectar ao front-end.
+
+Já o Front-end, onde se encontra neste repositório, temos a aplicação React, com todas as suas funcionalidades, e a integração da API do gpt, com os a Key Hospedada no 
+Render, fazendo assim o chamado, e ultilizando da API, da melhor forma e setando parametros precisos, para o Usúario poder tirar suas duvidas sobre a Furia no geral.
+
+Logo abaixo, explico o processo de criação do Site...
+
+---
 
 ## Configuração do Ambiente
 
