@@ -1,103 +1,190 @@
+
 # FURIA Chat
 
 ## Sobre o Projeto
 
-FURIA Chat é uma aplicação web desenvolvida em React que permite aos usuários fazer perguntas e obter informações sobre a FURIA. O aplicativo utiliza a API do ChatGPT (GPT-3.5-turbo) para fornecer respostas precisas e relevantes sobre o time, seus jogadores, conquistas e histórico.
+**FURIA Chat** é uma aplicação web desenvolvida em **React** e **Node.js (Express)** que permite aos usuários fazer perguntas e obter informações sobre a FURIA Esports. A aplicação utiliza a **API do ChatGPT (GPT-3.5-turbo)** via back-end para fornecer respostas precisas e contextualizadas sobre o time, seus jogadores, conquistas e histórico.
+
+---
 
 ## Funcionalidades
 
-- **Interface de Chat Intuitiva**: Interface simples e fácil de usar para fazer perguntas sobre a FURIA
-- **Filtro de Perguntas**: Verifica se as perguntas estão relacionadas à FURIA antes de processá-las
-- **Mensagens Rápidas**: Botões com perguntas predefinidas para facilitar o uso
-- **Integração com ChatGPT**: Utiliza a API OpenAI para gerar respostas contextuais
-- **Links Externos**: Acesso rápido ao site oficial da FURIA e redes sociais
+- **Interface de Chat Intuitiva**: Interface simples para interação com o chatbot
+- **Filtro de Perguntas**: Garante que apenas perguntas relacionadas à FURIA sejam processadas
+- **Mensagens Rápidas**: Sugestões pré-definidas para facilitar o uso
+- **Integração com ChatGPT via Backend**: As requisições passam por um servidor Express que faz a chamada à API da OpenAI
+- **Links Externos**: Acesso ao site oficial da FURIA e redes sociais
+- **Segurança Aprimorada**: A chave da OpenAI é mantida no back-end, protegendo contra exposição
+
+---
 
 ## Tecnologias Utilizadas
 
+### Front-end:
 - React.js 19.1.0
-- Axios para requisições HTTP
-- API OpenAI (GPT-3.5-turbo)
-- CSS para estilização
-- Ambiente de desenvolvimento React Scripts
+- Axios
+- CSS
 
-## Pré-requisitos
+### Back-end:
+- Node.js + Express
+- dotenv
+- CORS
+- OpenAI SDK
+
+---
+
+## Pré-requisitos para a criação
 
 - Node.js (versão recomendada: 16.x ou superior)
 - npm ou yarn
+- Conta no Render para hospedagem do back-end
 - Chave de API da OpenAI
+
+---
 
 ## Configuração do Ambiente
 
-1. Clone o repositório:
+### 1. Clone o repositório:
 ```bash
 git clone <url-do-repositorio>
 cd furiachat
 ```
 
-2. Instale as dependências:
+---
+
+### 2. Configuração do Back-End
+
+#### Estrutura:
+
+```
+furia-backend/
+├── index.js             # Servidor Express principal
+├── .env                 # Variável de ambiente com a chave da OpenAI
+├── package.json         # Dependências do Node.js
+```
+
+#### Dependências:
+
 ```bash
-npm install
-# ou
-yarn install
+npm install express cors dotenv openai
 ```
 
-3. Configure a variável de ambiente:
-Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+#### Arquivo `.env`:
+Crie o arquivo `.env` na raiz do projeto **backend** com:
 ```
-REACT_APP_CHATGPT_KEY=sua_chave_api_aqui
-```
-
-## Executando o Projeto
-
-Para iniciar o aplicativo em modo de desenvolvimento:
-```bash
-npm start
-# ou
-yarn start
+OPENAI_API_KEY=sua_chave_openai
 ```
 
-O aplicativo estará disponível em [http://localhost:3000](http://localhost:3000).
+#### Código Principal (index.js):
 
-## Estrutura do Projeto
+```js
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import OpenAI from 'openai';
 
+dotenv.config();
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+app.post('/api/chat', async (req, res) => {
+  const { prompt } = req.body;
+  if (!prompt) return res.status(400).json({ error: 'Prompt é obrigatório!' });
+
+  try {
+    const chatCompletion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: 'Você é um assistente que só responde perguntas sobre a FURIA e-sports.' },
+        { role: 'user', content: prompt },
+      ],
+      max_tokens: 150,
+      temperature: 0.7,
+    });
+
+    res.json({ message: chatCompletion.choices[0].message.content });
+  } catch (error) {
+    console.error('Erro ao chamar OpenAI:', error.message);
+    res.status(500).json({ error: 'Erro interno ao processar sua solicitação.' });
+  }
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
 ```
-furiachat/
-├── public/               # Arquivos públicos estáticos
-├── src/                  # Código fonte
-│   ├── assets/           # Imagens e recursos
-│   ├── App.js            # Componente principal
-│   ├── App.css           # Estilos do componente principal
-│   └── index.js          # Ponto de entrada da aplicação
-├── .env                  # Variáveis de ambiente (não versionado)
-├── package.json          # Dependências e scripts
-└── README.md             # Documentação
-```
-
-## Funcionalidades Detalhadas
-
-### Sistema de Filtragem de Perguntas
-
-O aplicativo possui um sistema que verifica se as perguntas estão relacionadas à FURIA através de palavras-chave como:
-- Nome da organização (FURIA, FURIAGaming)
-- Nomes dos jogos (CS:GO, Valorant, League of Legends, etc.)
-- Nomes dos jogadores (KSerato, yuurih, FalleN, etc.)
-
-### Integração com API OpenAI
-
-A aplicação se conecta à API do ChatGPT com instruções específicas para:
-- Responder apenas perguntas relacionadas à FURIA
-- Fornecer informações precisas sobre a organização
-- Limitar respostas a um tamanho adequado (max_tokens: 100)
-
-### Interface de Usuário
-
-- **Caixa de Texto**: Para digitação de perguntas personalizadas
-- **Área de Resposta**: Exibe as respostas geradas pela API
-- **Botões de Mensagens Rápidas**: Para acesso rápido a perguntas comuns
-- **Indicador de Carregamento**: Feedback visual durante o processamento da API
-- **Mensagens de Erro**: Feedback quando ocorrem problemas
 
 ---
 
-Desde já, agradeço a atenção e a oportunidade de participar desse processo seletivo
-espero que gostem.
+### 3. Deploy do Back-End no Render
+
+1. Suba o projeto em um repositório GitHub.
+2. Acesse [https://render.com](https://render.com) e crie um novo **Web Service**.
+3. Preencha os campos:
+   - Build Command: `npm install`
+   - Start Command: `npm start`
+   - Adicione a variável de ambiente `OPENAI_API_KEY`
+4. Após o deploy, copie a URL fornecida (ex: `https://furia-backend.onrender.com`)
+
+---
+
+### 4. Configuração do Front-End
+
+#### Arquivo `App.js` (trecho relevante atualizado):
+
+```js
+const result = await axios.post("https://furia-backend.onrender.com/api/chat", { prompt });
+```
+
+> Troque a URL conforme a URL do seu serviço no Render.
+
+> **Remova qualquer dependência de `REACT_APP_CHATGPT_KEY`**, pois o front-end agora não precisa mais da chave da OpenAI.
+
+---
+
+## Executando Localmente
+
+### Back-end:
+```bash
+# Na pasta do back-end
+npm install
+npm start
+```
+
+### Front-end:
+```bash
+# Na pasta do front-end
+npm install
+npm start
+```
+
+## Estrutura Completa do Projeto
+
+```
+furiabackend/
+│   ├── index.js
+│   ├── .env
+│   └── package.json
+
+
+
+TESTEFURIA/
+│   ├── src/
+│   │   ├── App.js
+│   │   ├── App.css
+│   │   ├── assets/
+│   │   └── index.js
+│   ├── public/
+│   ├── package.json
+│   └── .env (não necessário após integração com backend)
+```
+
+---
+
+## Conclusão
+
+Este projeto demonstra a integração entre **React (front-end)** e **Node.js com Express (back-end)**, utilizando a **API da OpenAI** para criar uma experiência personalizada de chatbot temático. Com segurança, escalabilidade e uma interface amigável, o **FURIA Chat** é uma ótima demonstração prática de uma aplicação completa full-stack.
