@@ -199,4 +199,6 @@ TESTEFURIA/
 
 ## Conclusão
 
-Este projeto demonstra a integração entre **React (front-end)** e **Node.js com Express (back-end)**, utilizando a **API da OpenAI** para criar uma experiência personalizada de chatbot temático. Com segurança, escalabilidade e uma interface amigável, o **FURIA Chat** é uma ótima demonstração prática de uma aplicação completa full-stack.
+Este projeto demonstra a integração entre **React (front-end)** e **Node.js com Express (back-end)**, utilizando a **API da OpenAI**
+para criar uma experiência personalizada de chatbot para a Fúria, tendo como base, outros sites mantendo ao máximo a identidade da Furia.
+Com segurança, escalabilidade e uma interface amigável, o **FURIA Chat** agradeço imensamente a ateção, e espero que tenham gostado!.
