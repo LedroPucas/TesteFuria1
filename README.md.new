@@ -81,10 +81,8 @@ furia-backend/
 npm install express cors dotenv openai
 ```
 
-#### Arquivo `.env`:
-Crie o arquivo `.env` na raiz do projeto **backend** com:
-```
-OPENAI_API_KEY=sua_chave_openai
+#### Arquivos:
+Criei os arquivos Index.js e package.json
 ```
 
 #### Código Principal (index.js):
@@ -129,34 +127,52 @@ app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
 ```
-
+#### Código (packages.json)
+{
+    "name": "furia-backend",
+    "version": "1.0.0",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+      "start": "node index.js"
+    },
+    "dependencies": {
+      "cors": "^2.8.5",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2",
+      "openai": "^4.0.0"
+    }
+  }
 ---
 
 ### 3. Deploy do Back-End no Render
 
-1. Suba o projeto em um repositório GitHub.
-2. Acesse [https://render.com](https://render.com) e crie um novo **Web Service**.
-3. Preencha os campos:
-   - Build Command: `npm install`
-   - Start Command: `npm start`
-   - Adicione a variável de ambiente `OPENAI_API_KEY`
-4. Após o deploy, copie a URL fornecida (ex: `https://furia-backend.onrender.com`)
+1. Subi o projeto em um repositório GitHub (https://github.com/LedroPucas/furiabackend).
+2. E ultilizando o Repositório, subi no Render [https://render.com](https://render.com) e criei um novo **Web Service**.
+3. Adicionei a variável de ambiente `OPENAI_API_KEY`
+4. Após o deploy, copiei a URL fornecida (ex: `https://furia-backend.onrender.com`) para a aplicação no Front
 
 ---
 
-### 4. Configuração do Front-End
+### 4. Front-End
 
-#### Arquivo `App.js` (trecho relevante atualizado):
+#### Arquivo `App.js`:
+
+
+``` REACT
+1. Ultilizei do React, para a criação da tela, ultilizando de melhores práticas com UI/UX, para melhor experiencia do usuario,
+fazendo a criação de todos os componentes, e as requisições e respostas do chat gpt;
+2. No mesmo, adicionei as variaveis de comportamento do GPT, para que o usuario apenas faça perguntas sobre a furia,
+e caso faça perguntas de outro tipo, ele sera alertado.
 
 ```js
+1. coloquei na variavel result o Link hosteado do Render, onde é possivel encontrar minha Key do Gpt:
 const result = await axios.post("https://furia-backend.onrender.com/api/chat", { prompt });
-```
-
-> Troque a URL conforme a URL do seu serviço no Render.
-
-> **Remova qualquer dependência de `REACT_APP_CHATGPT_KEY`**, pois o front-end agora não precisa mais da chave da OpenAI.
-
 ---
+
+```Hospedagem
+Logo após tudo concluido, subi o Front-End no Github (https://github.com/LedroPucas/TesteFuria1), e ultilizando o repositório, Hospedei no Vercel (https://teste-furia1.vercel.app/)
+onde ficará disponivel para visualização
 
 ## Executando Localmente
 
@@ -177,13 +193,15 @@ npm start
 ## Estrutura Completa do Projeto
 
 ```
+
+#Back-End
 furiabackend/
 │   ├── index.js
 │   ├── .env
 │   └── package.json
 
 
-
+#Front-End
 TESTEFURIA/
 │   ├── src/
 │   │   ├── App.js
